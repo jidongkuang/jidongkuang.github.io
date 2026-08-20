@@ -180,7 +180,8 @@ button {
 .hero-inner {
   position: relative;
   z-index: 2;
-  max-width: 1040px;
+  width: min(1280px, calc(100% - 40px));
+  max-width: 1280px;
 }
 
 .venue {
@@ -194,7 +195,7 @@ button {
 .hero h1 {
   margin: 0;
   font-family: var(--serif);
-  font-size: 43px;
+  font-size: 40px;
   font-weight: 500;
   line-height: 1.22;
   letter-spacing: 0;
@@ -366,7 +367,13 @@ button {
 }
 
 .motivation-figure {
-  margin-top: 50px;
+  width: 100%;
+  max-width: 800px;
+  margin: 68px auto 0;
+}
+
+.motivation-figure figcaption {
+  max-width: 760px;
 }
 
 .section-intro {
@@ -406,46 +413,6 @@ button {
   color: #414950;
 }
 
-.method-notes {
-  display: grid;
-  margin-top: 44px;
-  border-top: 1px solid var(--line);
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.method-notes article {
-  display: grid;
-  padding: 28px 30px 0 0;
-  grid-template-columns: 38px 1fr;
-  gap: 15px;
-}
-
-.method-notes article + article {
-  padding-right: 0;
-  padding-left: 30px;
-  border-left: 1px solid var(--line);
-}
-
-.method-index {
-  color: var(--coral);
-  font-size: 13px;
-  font-weight: 750;
-}
-
-.method-notes h3 {
-  margin: 0 0 7px;
-  font-family: var(--serif);
-  font-size: 19px;
-  line-height: 1.35;
-}
-
-.method-notes p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.65;
-}
-
 .experiment-block + .experiment-block {
   margin-top: 58px;
 }
@@ -458,8 +425,7 @@ button {
   margin-bottom: 16px;
 }
 
-.subsection-heading h3,
-.qualitative-results > h3 {
+.subsection-heading h3 {
   margin: 0;
   font-family: var(--serif);
   font-size: 21px;
@@ -588,20 +554,6 @@ button {
   font-size: 16px;
 }
 
-.qualitative-results {
-  margin-top: 64px;
-}
-
-.qualitative-results > h3 {
-  margin: 48px 0 15px;
-}
-
-.narrow-figure {
-  max-width: 400px;
-  margin-right: auto;
-  margin-left: auto;
-}
-
 .bibtex-shell {
   position: relative;
   max-width: 900px;
@@ -672,6 +624,12 @@ button {
   outline-offset: 3px;
 }
 
+@media (max-width: 1300px) {
+  .desktop-title-break {
+    display: none;
+  }
+}
+
 @media (max-width: 850px) {
   .nav-toggle {
     display: block;
@@ -715,21 +673,7 @@ button {
   }
 
   .hero h1 {
-    font-size: 36px;
-  }
-
-  .method-notes {
-    grid-template-columns: 1fr;
-  }
-
-  .method-notes article,
-  .method-notes article + article {
-    padding: 24px 0;
-    border-left: 0;
-  }
-
-  .method-notes article + article {
-    border-top: 1px solid var(--line);
+    font-size: 34px;
   }
 }
 
@@ -760,10 +704,6 @@ button {
     line-height: 1.28;
   }
 
-  .wide-only {
-    display: none;
-  }
-
   .authors {
     gap: 4px 16px;
     font-size: 16px;
@@ -788,6 +728,10 @@ button {
     font-size: 16px;
     line-height: 1.75;
     text-align: left;
+  }
+
+  .motivation-figure {
+    margin-top: 44px;
   }
 
   .section-intro {
