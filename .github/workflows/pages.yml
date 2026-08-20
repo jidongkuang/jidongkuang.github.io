@@ -3,9 +3,6 @@ name: Deploy project pages
 on:
   push:
     branches: [main]
-    paths:
-      - "site/**"
-      - ".github/workflows/pages.yml"
   workflow_dispatch:
 
 permissions:
@@ -31,7 +28,7 @@ jobs:
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: site
+          path: .
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
