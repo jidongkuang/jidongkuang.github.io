@@ -366,16 +366,6 @@ button {
   color: var(--blue-dark);
 }
 
-.motivation-figure {
-  width: 100%;
-  max-width: 800px;
-  margin: 68px auto 0;
-}
-
-.motivation-figure figcaption {
-  max-width: 760px;
-}
-
 .section-intro {
   max-width: 790px;
   margin: -10px auto 43px;
@@ -385,6 +375,17 @@ button {
 
 .paper-figure {
   margin: 0;
+}
+
+.motivation-figure {
+  width: 100%;
+  max-width: 800px;
+  margin: 68px auto 0;
+}
+
+.motivation-figure figcaption {
+  max-width: 760px;
+  text-align: center;
 }
 
 .paper-figure > a {
@@ -451,6 +452,10 @@ button {
 
 .result-figure img {
   min-width: 680px;
+}
+
+.result-figure figcaption {
+  text-align: center;
 }
 
 .tall-result {
