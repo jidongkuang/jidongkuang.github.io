@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <meta
+      name="description"
+      content="GenPrior: Unleashing Text-to-Motion Generative Priors for Zero-Shot Skeleton-based Action Recognition."
+    >
+    <meta name="author" content="Jidong Kuang">
+    <meta property="og:title" content="GenPrior | ACM Multimedia 2026">
+    <meta
+      property="og:description"
+      content="Text-to-motion generative priors for zero-shot skeleton-based action recognition."
+    >
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jidongkuang.github.io/projects/GenPrior/">
+    <meta
+      property="og:image"
+      content="https://jidongkuang.github.io/projects/GenPrior/images/genprior-framework.png"
+    >
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://jidongkuang.github.io/projects/GenPrior/">
+    <link rel="stylesheet" href="css/index.css">
+    <title>GenPrior | ACM Multimedia 2026</title>
+  </head>
+  <body>
+    <header class="site-header" data-header>
+      <nav class="nav-shell" aria-label="Project navigation">
+        <a class="brand" href="#top">GenPrior</a>
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-label="Open navigation"
+          aria-expanded="false"
+          aria-controls="site-navigation"
+          data-nav-toggle
+        >
+          <span></span><span></span><span></span>
+        </button>
+        <div id="site-navigation" class="nav-links" data-nav>
+          <a href="#abstract">Abstract</a>
+          <a href="#framework">Framework</a>
+          <a href="#experiments">Experiments</a>
+          <a href="#visual-results">Visual Results</a>
+          <a href="#bibtex">BibTeX</a>
+          <a class="nav-github" href="https://github.com/jidongkuang/GenPrior">GitHub</a>
+        </div>
+      </nav>
+      <div class="reading-progress" data-progress></div>
+    </header>
+
+    <main>
+      <section id="top" class="hero">
+        <div class="hero-motions" aria-hidden="true">
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="videos/playing-with-phone.mp4" type="video/mp4">
+          </video>
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="videos/putting-palms-together.mp4" type="video/mp4">
+          </video>
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="videos/reaching-into-pocket.mp4" type="video/mp4">
+          </video>
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="videos/stepping-on-foot.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <div class="page-width hero-inner">
+          <p class="venue">ACM Multimedia 2026</p>
+          <h1><strong>GenPrior</strong>: Unleashing Text-to-Motion Generative Priors for<br class="wide-only"> Zero-Shot Skeleton-based Action Recognition</h1>
+
+          <div class="authors" aria-label="Authors">
+            <a href="mailto:jidongkuang@seu.edu.cn">Jidong Kuang</a>
+            <span>Hongsong Wang<sup>*</sup></span>
+            <span>Jie Gui<sup>*</sup></span>
+          </div>
+          <p class="affiliation">Southeast University</p>
+          <p class="author-note"><sup>*</sup>Corresponding authors</p>
+
+          <div class="project-links" aria-label="Paper and code links">
+            <a class="project-button paper-button" href="https://arxiv.org/pdf/2608.02236">Paper</a>
+            <a class="project-button arxiv-button" href="https://arxiv.org/abs/2608.02236">arXiv</a>
+            <a class="project-button venue-button" href="https://doi.org/10.1145/3767308.3835514">ACM MM 2026</a>
+            <a class="project-button code-button" href="https://github.com/jidongkuang/GenPrior">Code</a>
+          </div>
+
+          <div class="tldr">
+            <strong>TL;DR</strong>
+            <p>
+              GenPrior distills kinematic structure from generated motions, adaptively
+              injects it into textual semantics, and refines unseen-class prototypes
+              with high-confidence test samples.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="abstract" class="section white-band">
+        <div class="page-width content-block">
+          <h2>Abstract</h2>
+          <p class="abstract-text">
+            Zero-shot skeleton-based action recognition (ZSAR) aims to recognize unseen
+            action categories by aligning skeleton features with textual semantics.
+            However, existing methods rely on text-derived prototypes that inherently
+            lack geometric structure and physical constraints, resulting in a pronounced
+            <strong>semantic-kinematic gap</strong>. To bridge this gap, we propose
+            <strong>GenPrior</strong>, the first framework to exploit generative priors
+            from pre-trained Text-to-Motion models for ZSAR. Specifically, we introduce
+            dispersion-gated feature fusion, which distills kinematic prototypes and
+            intra-class dispersion from generative motion sequences and employs a learned
+            gating network to adaptively inject reliable structural cues into textual
+            embeddings while suppressing synthetic artifacts. Furthermore, we propose
+            generative prototype refinement, which leverages generation-enhanced
+            prototypes as anchors to mine high-confidence unseen samples, calibrating
+            class prototypes toward the true distribution. Extensive experiments on
+            NTU-60, NTU-120, and PKU-MMD demonstrate state-of-the-art performance under
+            both zero-shot and generalized zero-shot settings.
+          </p>
+          <figure class="paper-figure motivation-figure">
+            <a href="images/method-motivation.png" target="_blank" rel="noreferrer">
+              <img
+                src="images/method-motivation.png"
+                width="2184"
+                height="943"
+                alt="Comparison of prior text-only zero-shot recognition and GenPrior with generative motion priors."
+                loading="lazy"
+              >
+            </a>
+            <figcaption>
+              <strong>Motivation.</strong> Text-derived prototypes lack physical
+              constraints and can deviate from real skeleton features. GenPrior enriches
+              them with structurally grounded generative motion priors.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="framework" class="section gray-band">
+        <div class="page-width content-block">
+          <h2>Framework</h2>
+          <figure class="paper-figure framework-figure">
+            <a href="images/genprior-framework.png" target="_blank" rel="noreferrer">
+              <img
+                src="images/genprior-framework.png"
+                width="3347"
+                height="1454"
+                alt="The GenPrior framework, covering motion generation priors, adaptive semantic fusion, latent alignment, and generative prototype refinement."
+                loading="lazy"
+              >
+            </a>
+            <figcaption>
+              <strong>Overview of GenPrior.</strong> A frozen text-to-motion model
+              generates motion priors. Their class-level prototypes and dispersion are
+              adaptively fused with textual features, while high-confidence test samples
+              refine unseen-class prototypes at inference.
+            </figcaption>
+          </figure>
+
+          <div class="method-notes">
+            
+          </div>
+        </div>
+      </section>
+
+      <section id="experiments" class="section white-band">
+        <div class="page-width content-block">
+          <h2>Experiments</h2>
+          <p class="section-intro">
+            GenPrior is evaluated on NTU RGB+D 60, NTU RGB+D 120, and PKU-MMD
+            under fixed-split ZSL, random-split ZSL, and generalized ZSL protocols.
+          </p>
+
+          <section class="experiment-block" aria-labelledby="fixed-zsl-title">
+            <div class="subsection-heading">
+              <h3 id="fixed-zsl-title">Fixed-split zero-shot recognition</h3>
+              <p>Accuracy (%). Gains are against the strongest inductive baseline.</p>
+            </div>
+            <figure class="paper-figure result-figure tall-result">
+              <a href="images/fixed-split-zsl-results.png" target="_blank" rel="noreferrer">
+                <img
+                  src="images/fixed-split-zsl-results.png"
+                  width="1318"
+                  height="1197"
+                  alt="Fixed-split zero-shot recognition results on NTU-60 and NTU-120."
+                  loading="lazy"
+                >
+              </a>
+              <figcaption>
+                <strong>Fixed-split ZSL.</strong> GenPrior reaches 73.43% on NTU-60
+                48 / 12 and 90.44% / 81.39% on NTU-120, with its margin increasing
+                on the more challenging unseen-class splits.
+              </figcaption>
+            </figure>
+          </section>
+
+          <section class="experiment-block" aria-labelledby="random-zsl-title">
+            <div class="subsection-heading">
+              <h3 id="random-zsl-title">Random-split zero-shot recognition</h3>
+              <p>Mean accuracy (%) over three random splits.</p>
+            </div>
+            <figure class="paper-figure result-figure medium-result">
+              <a href="images/random-split-zsl-results.png" target="_blank" rel="noreferrer">
+                <img
+                  src="images/random-split-zsl-results.png"
+                  width="1257"
+                  height="798"
+                  alt="Random-split zero-shot recognition results on NTU-60, NTU-120, and PKU-MMD."
+                  loading="lazy"
+                >
+              </a>
+              <figcaption>
+                <strong>Random-split ZSL.</strong> Averaged over three splits, GenPrior
+                improves the strongest prior results by 6.4, 13.5, and 3.1 points.
+              </figcaption>
+            </figure>
+          </section>
+
+          <section class="experiment-block" aria-labelledby="gzsl-title">
+            <div class="subsection-heading">
+              <h3 id="gzsl-title">Generalized zero-shot recognition</h3>
+              <p>Seen accuracy (S), unseen accuracy (U), and harmonic mean (H), all in %.</p>
+            </div>
+            <figure class="paper-figure result-figure wide-result">
+              <a href="images/generalized-zsl-results.png" target="_blank" rel="noreferrer">
+                <img
+                  src="images/generalized-zsl-results.png"
+                  width="1733"
+                  height="810"
+                  alt="Generalized zero-shot recognition results on NTU-60 and NTU-120."
+                  loading="lazy"
+                >
+              </a>
+              <figcaption>
+                <strong>Generalized ZSL.</strong> GenPrior improves unseen accuracy and
+                establishes strong harmonic means across the four evaluation splits.
+              </figcaption>
+            </figure>
+          </section>
+        </div>
+      </section>
+
+      <section id="visual-results" class="section gray-band">
+        <div class="page-width content-block">
+          <h2>Visual Results</h2>
+          <p class="section-intro">
+            Text-to-motion models provide kinematically grounded cues for action classes
+            that have no labeled skeleton samples. The examples below are generated
+            motions used as priors, not real NTU samples.
+          </p>
+
+          <figure class="paper-figure generated-sequences-figure">
+            <a href="images/generated-motion-sequences.png" target="_blank" rel="noreferrer">
+              <img
+                src="images/generated-motion-sequences.png"
+                width="2134"
+                height="1083"
+                alt="Six uniformly sampled skeleton frames for ten text-to-motion generated action sequences."
+                loading="lazy"
+              >
+            </a>
+            <figcaption>
+              <strong>Generated motion sequences.</strong> Six frames are sampled from
+              each of ten representative action sequences. Color indicates temporal
+              progression, revealing physically plausible poses and coherent trajectories.
+            </figcaption>
+          </figure>
+
+          <div class="motion-viewer" data-motion-viewer>
+            <div class="motion-selector" aria-label="Generated motion examples">
+              <button class="motion-choice" type="button" data-motion-src="videos/kicking-something.mp4" data-motion-label="Kicking something" aria-pressed="true">
+                <span class="play-icon" aria-hidden="true"></span>
+                <span>Kicking something</span>
+              </button>
+              <button class="motion-choice" type="button" data-motion-src="videos/hopping-one-foot.mp4" data-motion-label="Hopping (one foot jumping)" aria-pressed="false">
+                <span class="play-icon" aria-hidden="true"></span>
+                <span>Hopping (one foot jumping)</span>
+              </button>
+              <button class="motion-choice" type="button" data-motion-src="videos/running-on-the-spot.mp4" data-motion-label="Running on the spot" aria-pressed="false">
+                <span class="play-icon" aria-hidden="true"></span>
+                <span>Running on the spot</span>
+              </button>
+              <button class="motion-choice" type="button" data-motion-src="videos/sitting-down.mp4" data-motion-label="Sitting down" aria-pressed="false">
+                <span class="play-icon" aria-hidden="true"></span>
+                <span>Sitting down</span>
+              </button>
+              <button class="motion-choice" type="button" data-motion-src="videos/tennis-bat-swing.mp4" data-motion-label="Tennis bat swing" aria-pressed="false">
+                <span class="play-icon" aria-hidden="true"></span>
+                <span>Tennis bat swing</span>
+              </button>
+              <button class="motion-choice" type="button" data-motion-src="videos/brushing-teeth.mp4" data-motion-label="Brushing teeth" aria-pressed="false">
+                <span class="play-icon" aria-hidden="true"></span>
+                <span>Brushing teeth</span>
+              </button>
+              <button class="motion-choice" type="button" data-motion-src="videos/wear-on-glasses.mp4" data-motion-label="Wear on glasses" aria-pressed="false">
+                <span class="play-icon" aria-hidden="true"></span>
+                <span>Wear on glasses</span>
+              </button>
+              <button class="motion-choice" type="button" data-motion-src="videos/bounce-ball.mp4" data-motion-label="Bounce ball" aria-pressed="false">
+                <span class="play-icon" aria-hidden="true"></span>
+                <span>Bounce ball</span>
+              </button>
+              <button class="motion-choice" type="button" data-motion-src="videos/hands-up-both-hands.mp4" data-motion-label="Hands up (both hands)" aria-pressed="false">
+                <span class="play-icon" aria-hidden="true"></span>
+                <span>Hands up (both hands)</span>
+              </button>
+              <button class="motion-choice" type="button" data-motion-src="videos/wear-a-shoe.mp4" data-motion-label="Wear a shoe" aria-pressed="false">
+                <span class="play-icon" aria-hidden="true"></span>
+                <span>Wear a shoe</span>
+              </button>
+            </div>
+
+            <figure class="motion-player">
+              <div class="motion-player-frame">
+                <video
+                  src="videos/kicking-something.mp4"
+                  muted
+                  loop
+                  playsinline
+                  controls
+                  preload="metadata"
+                  aria-label="Kicking something generated motion"
+                  data-motion-video
+                ></video>
+              </div>
+              <figcaption>
+                <strong data-motion-caption>Kicking something</strong>
+                <span>Full generated sequence</span>
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="qualitative-results">
+            <h3>Prototype alignment</h3>
+            <figure class="paper-figure">
+              <a href="images/prototype-alignment-tsne.png" target="_blank" rel="noreferrer">
+                <img
+                  src="images/prototype-alignment-tsne.png"
+                  width="2431"
+                  height="621"
+                  alt="t-SNE plots comparing baseline and GenPrior prototypes on NTU-120 unseen classes."
+                  loading="lazy"
+                >
+              </a>
+              <figcaption>
+                <strong>Feature-space visualization.</strong> Dots are unseen-class test
+                samples and stars are semantic prototypes. GenPrior places prototypes
+                closer to their corresponding clusters on both NTU-120 splits.
+              </figcaption>
+            </figure>
+
+            <h3>Class-wise improvement</h3>
+            <figure class="paper-figure narrow-figure">
+              <a href="images/classwise-accuracy-changes.png" target="_blank" rel="noreferrer">
+                <img
+                  src="images/classwise-accuracy-changes.png"
+                  width="1921"
+                  height="1375"
+                  alt="Per-class accuracy change after applying generative prototype refinement on NTU-120 96/24."
+                  loading="lazy"
+                >
+              </a>
+              <figcaption>
+                <strong>Per-class accuracy change on NTU-120 96 / 24.</strong> Prototype
+                refinement improves 19 of 24 unseen classes, with the largest gains on
+                fine-grained object interactions.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section id="bibtex" class="section white-band">
+        <div class="page-width content-block">
+          <h2>BibTeX</h2>
+          <p class="section-intro">If you find GenPrior useful, please cite our work.</p>
+          <div class="bibtex-shell">
+            <button class="copy-button" type="button" data-copy-citation>
+              <span data-copy-label>Copy</span>
+            </button>
+            <pre id="citation"><code>@article{kuang2026genprior,
+  title={GenPrior: Unleashing Text-to-Motion Generative Priors for Zero-Shot Skeleton-based Action Recognition},
+  author={Kuang, Jidong and Wang, Hongsong and Gui, Jie},
+  journal={arXiv preprint arXiv:2608.02236},
+  year={2026}
+}</code></pre>
+            <span class="copy-status" role="status" aria-live="polite" data-copy-status></span>
+          </div>
+
+          
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="page-width">
+        <span>GenPrior &middot; ACM Multimedia 2026</span>
+      </div>
+    </footer>
+
+    <script src="js/index.js"></script>
+  </body>
+</html>
