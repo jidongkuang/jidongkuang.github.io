@@ -280,6 +280,15 @@ button {
   background: var(--blue);
 }
 
+.venue-label {
+  cursor: default;
+}
+
+.venue-label:hover {
+  box-shadow: none;
+  transform: none;
+}
+
 .code-button {
   background: #20252b;
 }
