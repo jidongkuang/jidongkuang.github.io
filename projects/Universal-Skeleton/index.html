@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <meta
+      name="description"
+      content="Toward Universal Skeleton-Based Action Recognition across Heterogeneous Skeletons and Open Vocabularies."
+    >
+    <meta name="author" content="Jidong Kuang">
+    <meta property="og:title" content="Universal Skeleton-Based Action Recognition">
+    <meta
+      property="og:description"
+      content="One model for heterogeneous skeleton formats and open-vocabulary action recognition."
+    >
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jidongkuang.github.io/projects/Universal-Skeleton/">
+    <meta
+      property="og:image"
+      content="https://jidongkuang.github.io/projects/Universal-Skeleton/images/unified-skeleton-representation.png"
+    >
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://jidongkuang.github.io/projects/Universal-Skeleton/">
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Universal Skeleton-Based Action Recognition</title>
+  </head>
+  <body>
+    <header class="site-header" data-header>
+      <nav class="nav-shell" aria-label="Project navigation">
+        <a class="brand" href="#top">Universal Skeleton</a>
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-label="Open navigation"
+          aria-expanded="false"
+          aria-controls="site-navigation"
+          data-nav-toggle
+        >
+          <span></span><span></span><span></span>
+        </button>
+        <div id="site-navigation" class="nav-links" data-nav>
+          <a href="#abstract">Abstract</a>
+          <a href="#representation">Representation</a>
+          <a href="#framework">Framework</a>
+          <a href="#results">Results</a>
+          <a href="#reproduce">Reproduce</a>
+          <a href="#bibtex">BibTeX</a>
+          <a class="nav-github" href="https://github.com/jidongkuang/Universal-Skeleton" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+      </nav>
+      <div class="reading-progress" data-progress></div>
+    </header>
+
+    <main>
+      <section id="top" class="hero">
+        <canvas class="hero-canvas" data-hero-canvas aria-hidden="true"></canvas>
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <div class="page-width hero-inner">
+          <p class="venue">arXiv 2026</p>
+          <h1>
+            Toward <strong>Universal Skeleton-Based Action Recognition</strong><br class="desktop-title-break">
+            across Heterogeneous Skeletons and Open Vocabularies
+          </h1>
+
+          <div class="authors" aria-label="Authors">
+            <span>Jidong Kuang</span>
+            <span>Hongsong Wang<sup>*</sup></span>
+            <span>Jie Gui<sup>*</sup></span>
+            <span>Yuan Yan Tang</span>
+            <span>James Tin-Yau Kwok</span>
+          </div>
+          <p class="affiliation">Southeast University &middot; University of Macau &middot; UOW College Hong Kong &middot; HKUST</p>
+          <p class="author-note"><sup>*</sup>Corresponding authors</p>
+
+          <div class="project-links" aria-label="Paper, code, and model links">
+            <a class="project-button paper-button" href="https://arxiv.org/pdf/2604.17013" target="_blank" rel="noopener noreferrer">Paper</a>
+            <a class="project-button arxiv-button" href="https://arxiv.org/abs/2604.17013" target="_blank" rel="noopener noreferrer">arXiv</a>
+            <a class="project-button code-button" href="https://github.com/jidongkuang/Universal-Skeleton" target="_blank" rel="noopener noreferrer">Code</a>
+            <a class="project-button model-button" href="https://drive.google.com/file/d/17J3wiBKD0vpyJZSu7wlnIcn3u8cBouQh/view?usp=sharing" target="_blank" rel="noopener noreferrer">Checkpoint</a>
+          </div>
+
+          <div class="tldr">
+            <strong>TL;DR</strong>
+            <p>
+              A single model canonicalizes four heterogeneous skeleton formats,
+              aligns motion with language at multiple granularities, and recognizes
+              actions from an open candidate vocabulary.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="abstract" class="section white-band">
+        <div class="page-width content-block">
+          <h2>Abstract</h2>
+          <p class="abstract-text">
+            Skeleton data used for action recognition come from depth sensors,
+            marker-based motion capture systems, and 2D or 3D pose estimators.
+            Their joint counts, skeletal topologies, and coordinate dimensions differ,
+            while real applications must also recognize action categories beyond a
+            fixed training vocabulary. We study <strong>universal skeleton-based action
+            recognition</strong> under these two challenges. We construct the
+            Heterogeneous Open-Vocabulary (HOV) Skeleton dataset and introduce a
+            Transformer framework that maps Kinect v1, Kinect v2, COCO-17, and
+            SMPL-22 inputs into a common representation. A two-stream motion encoder
+            learns temporal and spatial features, while multi-grained motion-text
+            alignment connects global instances, individual streams, temporal segments,
+            and body parts to language semantics. The resulting model handles
+            heterogeneous skeleton sources and open candidate label sets with one set
+            of weights.
+          </p>
+
+          
+        </div>
+      </section>
+
+      <section id="representation" class="section gray-band">
+        <div class="page-width content-block">
+          <h2>Unified Skeleton Representation</h2>
+          <div class="skeleton-explorer" data-skeleton-explorer>
+            <div class="source-selector" role="group" aria-label="Source skeleton format">
+              <button class="source-choice" type="button" data-source="ucla" aria-pressed="false">
+                <span class="source-swatch swatch-ucla"></span>
+                <span>Kinect v1</span>
+                <small>20 joints &middot; 3D</small>
+              </button>
+              <button class="source-choice" type="button" data-source="ntu" aria-pressed="false">
+                <span class="source-swatch swatch-ntu"></span>
+                <span>Kinect v2</span>
+                <small>25 joints &middot; 3D</small>
+              </button>
+              <button class="source-choice" type="button" data-source="coco" aria-pressed="true">
+                <span class="source-swatch swatch-coco"></span>
+                <span>COCO-17</span>
+                <small>17 joints &middot; 2D</small>
+              </button>
+              <button class="source-choice" type="button" data-source="smpl" aria-pressed="false">
+                <span class="source-swatch swatch-smpl"></span>
+                <span>SMPL-22</span>
+                <small>22 joints &middot; 3D</small>
+              </button>
+            </div>
+
+            <div class="skeleton-stage">
+              <figure class="skeleton-panel">
+                <figcaption>
+                  <strong data-source-title>COCO-17</strong>
+                  <span data-source-meta>NTU-2D &middot; native x-y coordinates</span>
+                </figcaption>
+                <canvas data-source-canvas role="img" aria-label="A real source skeleton frame"></canvas>
+              </figure>
+              <div class="mapping-arrow" aria-hidden="true">
+                <span>semantic mapping</span>
+                <i></i>
+              </div>
+              <figure class="skeleton-panel unified-panel">
+                <figcaption>
+                  <strong>Unified 31 joints</strong>
+                  <span data-unified-meta>17 observed &middot; 14 imputed</span>
+                </figcaption>
+                <canvas data-unified-canvas role="img" aria-label="The unified skeleton with observed and imputed joints"></canvas>
+              </figure>
+            </div>
+
+            <div class="representation-legend" aria-label="Skeleton joint legend">
+              <span><i class="legend-node observed-node"></i>Observed</span>
+              <span><i class="legend-node imputed-node"></i>Imputed</span>
+              <span class="rule-note"><code>p<sub>target</sub> = p<sub>anchor</sub> + rho(p<sub>anchor</sub> - p<sub>parent</sub>)</code></span>
+            </div>
+          </div>
+
+          <figure class="paper-figure representation-figure">
+            <a href="images/unified-skeleton-representation.png" target="_blank" rel="noreferrer">
+              <img
+                src="images/unified-skeleton-representation.png"
+                width="2840"
+                height="873"
+                alt="Joint-index correspondence from Kinect v1, Kinect v2, COCO-17, and SMPL-22 to the unified 31-joint skeleton."
+                loading="lazy"
+              >
+            </a>
+            <figcaption>
+              <strong>Cross-format correspondence.</strong> Filled nodes are observed in
+              the source format; hollow nodes and dashed edges are kinematically imputed.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="framework" class="section white-band">
+        <div class="page-width content-block">
+          <h2>Framework</h2>
+          <p class="section-intro">
+            Joint, bone, and motion streams share a two-stream Transformer encoder.
+            Global, stream-specific, temporal, and body-part features are aligned with
+            frozen text embeddings.
+          </p>
+          <figure class="paper-figure framework-figure">
+            <a href="images/framework.png" target="_blank" rel="noreferrer">
+              <img
+                src="images/framework.png"
+                width="1984"
+                height="768"
+                alt="Universal skeleton action recognition framework with unified input representation, temporal and spatial encoders, and multi-grained motion-text alignment."
+                loading="lazy"
+              >
+            </a>
+          </figure>
+
+          
+        </div>
+      </section>
+
+      <section id="results" class="section gray-band">
+        <div class="page-width content-block">
+          <h2>Results</h2>
+          <p class="section-intro">
+            The same unified model is evaluated on Kinect v2 3D skeletons,
+            COCO-based 2D poses, and SMPL motion-capture sequences.
+          </p>
+
+          <section class="experiment-block" aria-labelledby="unified-result-title">
+            <div class="subsection-heading">
+              <div>
+                <p class="eyebrow">One checkpoint, three benchmarks</p>
+                <h3 id="unified-result-title">Heterogeneous recognition</h3>
+              </div>
+              <p>Top-1 accuracy (%) from Table II, full J+B+M model.</p>
+            </div>
+            <div class="benchmark-bars" aria-label="Full-model accuracies on NTU-60 and HumanML3D">
+              <div class="benchmark-row">
+                <div class="benchmark-name"><strong>NTU-60 3D</strong><span>Kinect v2 &middot; x-sub</span></div>
+                <div class="benchmark-track"><i style="--score: 87.01%"></i></div>
+                <span class="benchmark-score">87.01</span>
+              </div>
+              <div class="benchmark-row">
+                <div class="benchmark-name"><strong>NTU-60 2D</strong><span>COCO pose &middot; x-sub</span></div>
+                <div class="benchmark-track"><i style="--score: 90.10%"></i></div>
+                <span class="benchmark-score">90.10</span>
+              </div>
+              <div class="benchmark-row">
+                <div class="benchmark-name"><strong>HumanML3D</strong><span>SMPL &middot; multi-label</span></div>
+                <div class="benchmark-track"><i style="--score: 61.23%"></i></div>
+                <span class="benchmark-score">61.23</span>
+              </div>
+            </div>
+          </section>
+
+          
+
+          <section class="experiment-block transfer-block" aria-labelledby="transfer-title">
+            <div class="subsection-heading">
+              <div>
+                <p class="eyebrow">Linear probing across sensor types</p>
+                <h3 id="transfer-title">Cross-format generalization</h3>
+              </div>
+              <p>Train on one format, test on another.</p>
+            </div>
+            <div class="transfer-table-wrap">
+              <table class="transfer-table">
+                <thead>
+                  <tr><th>Pre-training source</th><th>Target</th><th>Format shift</th><th>Accuracy</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>NTU-60 3D</td><td>HumanML3D</td><td>Kinect v2 &rarr; MoCap</td><td>52.72</td></tr>
+                  <tr><td>NTU-60 3D</td><td>NTU-60 2D</td><td>Kinect v2 &rarr; 2D pose</td><td>75.41</td></tr>
+                  <tr><td>NTU-60 3D</td><td>NW-UCLA</td><td>Kinect v2 &rarr; Kinect v1</td><td>91.59</td></tr>
+                  <tr><td>HumanML3D</td><td>NTU-60 3D</td><td>MoCap &rarr; Kinect v2</td><td>74.81</td></tr>
+                  <tr><td>HumanML3D</td><td>NTU-60 2D</td><td>MoCap &rarr; 2D pose</td><td>74.91</td></tr>
+                  <tr><td>HumanML3D</td><td>NW-UCLA</td><td>MoCap &rarr; Kinect v1</td><td>86.85</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      
+
+      <section id="bibtex" class="section gray-band">
+        <div class="page-width content-block">
+          <h2>BibTeX</h2>
+          <p class="section-intro">If you find this work useful, please cite our paper.</p>
+          <div class="bibtex-shell">
+            <button class="copy-button" type="button" data-copy-citation>
+              <span data-copy-label>Copy</span>
+            </button>
+            <pre id="citation"><code>@misc{kuang2026universalskeletonbasedactionrecognition,
+  title         = {Toward Universal Skeleton-Based Action Recognition across Heterogeneous Skeletons and Open Vocabularies},
+  author        = {Jidong Kuang and Hongsong Wang and Jie Gui and Yuan Yan Tang and James Tin-Yau Kwok},
+  year          = {2026},
+  eprint        = {2604.17013},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  url           = {https://arxiv.org/abs/2604.17013}
+}</code></pre>
+            <span class="copy-status" role="status" aria-live="polite" data-copy-status></span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="page-width">
+        <span>Universal Skeleton-Based Action Recognition &middot; 2026</span>
+        <a href="mailto:jidongkuang@seu.edu.cn">jidongkuang@seu.edu.cn</a>
+      </div>
+    </footer>
+
+    <script src="js/index.js"></script>
+  </body>
+</html>
