@@ -907,97 +907,6 @@ button {
   background: var(--white);
 }
 
-.reproduce-layout {
-  display: grid;
-  max-width: 980px;
-  margin: 0 auto;
-  align-items: start;
-  grid-template-columns: minmax(0, 1.6fr) minmax(260px, 0.8fr);
-  gap: 46px;
-}
-
-.command-list {
-  border-top: 1px solid var(--line);
-}
-
-.command-block {
-  padding: 17px 0 22px;
-  border-bottom: 1px solid var(--line);
-}
-
-.command-block > div {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 9px;
-}
-
-.command-block > div span {
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.command-block > div code {
-  color: var(--muted);
-  font-family: var(--mono);
-  font-size: 10px;
-}
-
-.command-block pre {
-  margin: 0;
-  overflow-x: auto;
-  padding: 13px 16px;
-  border-radius: 6px;
-  background: #20262c;
-  color: #f3f5f7;
-  font-family: var(--mono);
-  font-size: 11px;
-  line-height: 1.65;
-}
-
-.release-panel {
-  padding-left: 29px;
-  border-left: 3px solid var(--green);
-}
-
-.release-panel h3 {
-  margin: 3px 0 17px;
-  font-family: var(--serif);
-  font-size: 25px;
-}
-
-.release-panel dl {
-  margin: 0 0 18px;
-}
-
-.release-panel dl div {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 7px 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.release-panel dt {
-  color: var(--muted);
-  font-size: 11px;
-}
-
-.release-panel dd {
-  margin: 0;
-  font-family: var(--serif);
-  font-size: 15px;
-  font-weight: 700;
-}
-
-.release-panel > a {
-  display: block;
-  margin-top: 7px;
-  font-size: 12px;
-  font-weight: 700;
-}
-
 .bibtex-shell {
   position: relative;
   max-width: 920px;
@@ -1303,15 +1212,6 @@ button {
   .results-grid {
     grid-template-columns: 1fr;
     gap: 43px;
-  }
-
-  .reproduce-layout {
-    grid-template-columns: 1fr;
-    gap: 34px;
-  }
-
-  .release-panel {
-    padding-left: 20px;
   }
 
   .bibtex-shell pre {
