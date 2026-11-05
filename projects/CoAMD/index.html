@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="CoAMD connects text-to-motion generation with skeleton-based action recognition through recognizer-guided autoregressive diffusion.">
+    <meta name="author" content="Jidong Kuang, Hongsong Wang, Jie Gui, Yuan Yan Tang, James Tin-Yau Kwok">
+    <meta property="og:title" content="CoAMD | Marrying Text-to-Motion Generation with Skeleton-Based Action Recognition">
+    <meta property="og:description" content="An action recognizer guides motion generation, step by step. Explore the framework, generated motions, and results across four motion tasks.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jidongkuang.github.io/projects/CoAMD/">
+    <meta property="og:image" content="https://jidongkuang.github.io/projects/CoAMD/images/social-preview.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://jidongkuang.github.io/projects/CoAMD/">
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link rel="stylesheet" href="css/index.css">
+    <title>CoAMD | Marrying Text-to-Motion Generation with Skeleton-Based Action Recognition</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#abstract">Skip to content</a>
+    <header class="site-header">
+      <nav class="nav-shell" aria-label="Project navigation">
+        <a class="brand" href="#top">CoAMD<span class="brand-dot">.</span></a>
+        <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="site-navigation" data-nav-toggle>
+          <span></span><span></span><span></span>
+        </button>
+        <div id="site-navigation" class="nav-links" data-nav>
+          <a href="#abstract">Abstract</a>
+          <a href="#framework">Framework</a>
+          <a href="#visualizations">Motions</a>
+          <a href="#results">Results</a>
+          <a href="#bibtex">BibTeX</a>
+          <a class="nav-github" href="https://github.com/jidongkuang/CoAMD" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+      </nav>
+      <div class="reading-progress" data-progress></div>
+    </header>
+
+    <main>
+      <section id="top" class="hero">
+        <div class="page-width hero-inner">
+          <p class="venue">CoAMD &middot; arXiv 2026</p>
+          <h1>Marrying <strong>Text-to-Motion Generation</strong><br class="desktop-title-break">
+            with <strong>Skeleton-Based Action Recognition</strong></h1>
+          <div class="authors" aria-label="Authors">
+            <span>Jidong Kuang</span>
+            <span>Hongsong Wang<sup>*</sup></span>
+            <span>Jie Gui<sup>*</sup></span>
+            <span>Yuan Yan Tang</span>
+            <span>James Tin-Yau Kwok</span>
+          </div>
+          <p class="affiliation">Southeast University &middot; University of Macau &middot; UOW College Hong Kong &middot; HKUST</p>
+          <p class="author-note"><sup>*</sup>Corresponding authors</p>
+          <div class="project-links" aria-label="Project resources">
+            <a class="project-button paper-button" href="https://arxiv.org/pdf/2604.17090" target="_blank" rel="noopener noreferrer">Paper <span aria-hidden="true">&#8599;</span></a>
+            <a class="project-button arxiv-button" href="https://arxiv.org/abs/2604.17090" target="_blank" rel="noopener noreferrer">arXiv <span aria-hidden="true">&#8599;</span></a>
+            <a class="project-button code-button" href="https://github.com/jidongkuang/CoAMD" target="_blank" rel="noopener noreferrer">Code <span aria-hidden="true">&#8599;</span></a>
+            <a class="project-button model-button" href="#visualizations">Explore motions <span aria-hidden="true">&#8595;</span></a>
+          </div>
+          <div class="tldr">
+            <strong>TL;DR</strong>
+            <p>An action recognizer guides motion generation at every autoregressive step.
+              Shared joint, bone, and motion representations connect generation, recognition,
+              retrieval, and editing in one framework.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="teaser-section" aria-label="Recognizer-guided generation overview">
+        <div class="page-width">
+          <figure class="paper-figure teaser-figure">
+            <a href="images/recognizer-guidance.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open the recognizer-guided generation figure at full resolution">
+              <img src="images/recognizer-guidance.jpg" width="1628" height="699" alt="A generated person runs, stops, bends over with small steps, and resumes running, with recognizer feedback at successive generation steps." fetchpriority="high">
+            </a>
+            <figcaption><strong>Recognition guides generation.</strong> The generator synthesizes motion while the recognizer helps align each step with the action described in the prompt.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="abstract" class="section gray-band">
+        <div class="page-width content-block">
+          <h2>Abstract</h2>
+          <p class="abstract-text">
+            Human action recognition and motion generation are two active research problems in
+            human-centric multimedia understanding and generation, both aiming to align motion with
+            textual semantics. However, most existing works study these two problems separately,
+            without uncovering the links between them, namely that motion generation benefits from
+            explicit semantic comprehension. This work connects action recognition and motion
+            generation by using skeleton coordinates as a shared representation for both motion
+            understanding and generation. We propose <strong>Coordinates-Based Autoregressive Motion
+            Diffusion (CoAMD)</strong>, which synthesizes motion in a coarse-to-fine manner. As a core
+            component of CoAMD, we design a <strong>Multi-Modal Action Recognizer (MAR)</strong> that
+            provides gradient-based semantic guidance for motion generation. Furthermore, we establish
+            a rigorous benchmark by retraining and evaluating baselines on absolute coordinates.
+            Our model can be applied to four important tasks, including skeleton-based action recognition,
+            text-to-motion generation, text&ndash;motion retrieval, and motion editing. Extensive experiments
+            across these tasks demonstrate that our approach achieves state-of-the-art performance,
+            highlighting its effectiveness and versatility for human motion modeling.
+          </p>
+          <div class="task-strip" aria-label="Four motion tasks">
+            <a href="#results" data-select-result="generation"><span>01</span>Motion generation</a>
+            <a href="#results" data-select-result="recognition"><span>02</span>Action recognition</a>
+            <a href="#results" data-select-result="retrieval"><span>03</span>Text&ndash;motion retrieval</a>
+            <a href="#results" data-select-result="editing"><span>04</span>Motion editing</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="framework" class="section white-band">
+        <div class="page-width content-block">
+          <h2>Framework</h2>
+          <p class="section-intro">Absolute skeleton coordinates provide a shared foundation for motion understanding and generation.</p>
+          <figure class="paper-figure">
+            <a href="images/coamd-framework.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open the CoAMD architecture at full resolution">
+              <img src="images/coamd-framework.jpg" width="1588" height="662" alt="CoAMD architecture: joint, bone, and motion streams are encoded into latent tokens; a masked autoregressive Transformer and diffusion head generate motion, refined by recognizer guidance." loading="lazy">
+            </a>
+            <figcaption><strong>CoAMD architecture.</strong> A multi-modal autoencoder maps motion to latent tokens. A masked autoregressive Transformer and diffusion head generate the sequence, and MAR supplies semantic feedback during sampling.</figcaption>
+          </figure>
+          <div class="method-steps">
+            <article><span>01 / REPRESENT</span><h3>Joint, bone &amp; motion</h3><p>Encode absolute joint positions together with bone vectors and temporal displacements.</p></article>
+            <article><span>02 / GENERATE</span><h3>Autoregressive diffusion</h3><p>Predict masked latent tokens conditioned on the text prompt and visible motion context.</p></article>
+            <article><span>03 / REFINE</span><h3>Recognizer feedback</h3><p>Decode the motion and use the gradient of MAR's semantic alignment score to refine the current tokens.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="visualizations" class="section gray-band">
+        <div class="page-width content-block">
+          <h2>Text-to-Motion Visualizations</h2>
+          <p class="section-intro">Side-by-side comparisons with MARDM (left) and CoAMD (right). Each video shows the input text prompt.</p>
+          <div class="gallery-toolbar">
+            <span>Use the video controls to pause, replay, or view in full screen.</span>
+            <button class="motion-toggle" type="button" aria-pressed="false" data-toggle-motion hidden>Pause videos</button>
+          </div>
+          <div class="video-grid">
+            <figure class="motion-video featured-video">
+              <video controls muted loop playsinline preload="none" poster="images/merged_7-poster.jpg" aria-label="Stumble to the left, then return to standing; MARDM on the left and CoAMD on the right" data-motion-video>
+                <source src="videos/merged_7.mp4" type="video/mp4">
+                <a href="videos/merged_7.mp4">Download motion example 1</a>.
+              </video>
+              <figcaption><span>01</span>Stumble to the left, then return to standing</figcaption>
+            </figure>
+            <figure class="motion-video">
+              <video controls muted loop playsinline preload="none" poster="images/merged_37-poster.jpg" aria-label="Shimmy, then exercise by lifting the knees; MARDM on the left and CoAMD on the right" data-motion-video>
+                <source src="videos/merged_37.mp4" type="video/mp4">
+                <a href="videos/merged_37.mp4">Download motion example 2</a>.
+              </video>
+              <figcaption><span>02</span>Shimmy, then exercise by lifting the knees</figcaption>
+            </figure>
+            <figure class="motion-video">
+              <video controls muted loop playsinline preload="none" poster="images/merged_12-poster.jpg" aria-label="Walk in a counterclockwise circle; MARDM on the left and CoAMD on the right" data-motion-video>
+                <source src="videos/merged_12.mp4" type="video/mp4">
+                <a href="videos/merged_12.mp4">Download motion example 3</a>.
+              </video>
+              <figcaption><span>03</span>Walk in a counterclockwise circle</figcaption>
+            </figure>
+            <figure class="motion-video">
+              <video controls muted loop playsinline preload="none" poster="images/merged_23-poster.jpg" aria-label="Walk forward, twirl, then walk back; MARDM on the left and CoAMD on the right" data-motion-video>
+                <source src="videos/merged_23.mp4" type="video/mp4">
+                <a href="videos/merged_23.mp4">Download motion example 4</a>.
+              </video>
+              <figcaption><span>04</span>Walk forward, twirl, then walk back</figcaption>
+            </figure>
+            <figure class="motion-video">
+              <video controls muted loop playsinline preload="none" poster="images/merged_34-poster.jpg" aria-label="Extend the left arm and lift the left leg to balance; MARDM on the left and CoAMD on the right" data-motion-video>
+                <source src="videos/merged_34.mp4" type="video/mp4">
+                <a href="videos/merged_34.mp4">Download motion example 5</a>.
+              </video>
+              <figcaption><span>05</span>Extend the left arm and lift the left leg to balance</figcaption>
+            </figure>
+            <figure class="motion-video">
+              <video controls muted loop playsinline preload="none" poster="images/merged_35-poster.jpg" aria-label="Wave hello with the right hand; MARDM on the left and CoAMD on the right" data-motion-video>
+                <source src="videos/merged_35.mp4" type="video/mp4">
+                <a href="videos/merged_35.mp4">Download motion example 6</a>.
+              </video>
+              <figcaption><span>06</span>Wave hello with the right hand</figcaption>
+            </figure>
+            <figure class="motion-video">
+              <video controls muted loop playsinline preload="none" poster="images/merged_20-poster.jpg" aria-label="Run on a treadmill; MARDM on the left and CoAMD on the right" data-motion-video>
+                <source src="videos/merged_20.mp4" type="video/mp4">
+                <a href="videos/merged_20.mp4">Download motion example 7</a>.
+              </video>
+              <figcaption><span>07</span>Run on a treadmill</figcaption>
+            </figure>
+          </div>
+          <details class="qualitative-details">
+            <summary>View comparisons with and without MAR guidance</summary>
+            <figure class="paper-figure qualitative-figure">
+              <a href="images/qualitative-comparison.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open the qualitative comparison figure at full resolution">
+                <img src="images/qualitative-comparison.jpg" width="899" height="1159" alt="Paired motion sequences compare CoAMD without and with MAR guidance for multi-part actions and stylistic details, with key prompt phrases highlighted in red." loading="lazy">
+              </a>
+              <figcaption>Qualitative comparisons on HumanML3D. Each pair shows our unguided baseline (w/o MAR) and the guided model (w/ MAR).</figcaption>
+            </figure>
+          </details>
+        </div>
+      </section>
+
+      <section id="results" class="section white-band">
+        <div class="page-width content-block">
+          <h2>Results across Four Tasks</h2>
+          <p class="section-intro">Generation, recognition, retrieval, and editing share the same absolute-coordinate motion representation.</p>
+          <div class="result-tabs" role="tablist" aria-label="Evaluation task" data-result-tabs hidden>
+            <button id="tab-generation" type="button" role="tab" aria-selected="true" aria-controls="panel-generation" data-result-tab="generation">Generation</button>
+            <button id="tab-recognition" type="button" role="tab" aria-selected="false" aria-controls="panel-recognition" tabindex="-1" data-result-tab="recognition">Recognition</button>
+            <button id="tab-retrieval" type="button" role="tab" aria-selected="false" aria-controls="panel-retrieval" tabindex="-1" data-result-tab="retrieval">Retrieval</button>
+            <button id="tab-editing" type="button" role="tab" aria-selected="false" aria-controls="panel-editing" tabindex="-1" data-result-tab="editing">Editing</button>
+          </div>
+
+          <div id="panel-generation" class="result-panel" role="tabpanel" aria-labelledby="tab-generation" tabindex="0" data-result-panel="generation">
+            <div class="result-heading"><p class="eyebrow">Text-to-motion generation</p><h3>Semantic guidance improves motion quality and alignment</h3><p>HumanML3D results. Baselines are evaluated using absolute joint coordinates; generation metrics are averaged over 20 runs.</p></div>
+            <div class="metric-strip" aria-label="CoAMD text-to-motion generation metrics on HumanML3D">
+              <div><span>R-Precision Top-1 &uarr;</span><strong>0.519</strong><small>without MAR: 0.502</small></div>
+              <div><span>FID &darr;</span><strong>0.065</strong><small>without MAR: 0.074</small></div>
+              <div><span>CLIP-score &uarr;</span><strong>0.674</strong><small>without MAR: 0.668</small></div>
+            </div>
+            <figure class="paper-figure result-figure"><div class="table-image-scroll" tabindex="0" role="region" aria-label="HumanML3D generation results, scroll horizontally on small screens"><a href="images/humanml3d-generation.jpg" target="_blank" rel="noopener noreferrer"><img src="images/humanml3d-generation.jpg" width="1440" height="589" alt="HumanML3D generation comparison: CoAMD achieves R-Precision Top-1 0.519, FID 0.065, MM-Dist 2.959, and CLIP-score 0.674." loading="lazy"></a></div><figcaption><strong>HumanML3D.</strong> Full text-to-motion comparison, including results with and without MAR guidance.</figcaption></figure>
+            <figure class="paper-figure result-figure"><div class="table-image-scroll" tabindex="0" role="region" aria-label="KIT-ML generation results, scroll horizontally on small screens"><a href="images/kit-generation.jpg" target="_blank" rel="noopener noreferrer"><img src="images/kit-generation.jpg" width="1431" height="404" alt="KIT-ML generation comparison: CoAMD achieves R-Precision Top-1 0.431, FID 0.217, MM-Dist 2.966, and CLIP-score 0.708." loading="lazy"></a></div><figcaption><strong>KIT-ML.</strong> Evaluation on a second text-to-motion dataset.</figcaption></figure>
+          </div>
+
+          <div id="panel-recognition" class="result-panel" role="tabpanel" aria-labelledby="tab-recognition" tabindex="0" data-result-panel="recognition">
+            <div class="result-heading"><p class="eyebrow">Skeleton-based action recognition</p><h3>Joint, bone, and motion streams capture complementary action cues</h3><p>Recognition accuracy (%) on HumanML3D with J+B+M inputs.</p></div>
+            <div class="metric-strip four-metrics" aria-label="CoAMD recognition accuracy on HumanML3D">
+              <div><span>Overall</span><strong>51.63</strong></div><div><span>Many-shot</span><strong>62.24</strong></div><div><span>Medium-shot</span><strong>38.13</strong></div><div><span>Few-shot</span><strong>25.32</strong></div>
+            </div>
+            <figure class="paper-figure result-figure"><div class="table-image-scroll" tabindex="0" role="region" aria-label="HumanML3D action recognition results, scroll horizontally on small screens"><a href="images/humanml3d-recognition.jpg" target="_blank" rel="noopener noreferrer"><img src="images/humanml3d-recognition.jpg" width="1342" height="410" alt="HumanML3D action recognition table compares CADA-VAE, SMIE, DVTA, and CoAMD using joint-only or joint, bone, and motion inputs." loading="lazy"></a></div><figcaption><strong>HumanML3D action recognition.</strong> Baselines use the same visual backbone.</figcaption></figure>
+            <figure class="paper-figure result-figure compact-result"><div class="table-image-scroll" tabindex="0" role="region" aria-label="NTU linear probing results, scroll horizontally on small screens"><a href="images/ntu-linear-probing.jpg" target="_blank" rel="noopener noreferrer"><img src="images/ntu-linear-probing.jpg" width="1136" height="506" alt="Linear probing on NTU-60 and NTU-120 after pre-training on HumanML3D, compared with UmURL and USDRL." loading="lazy"></a></div><figcaption><strong>Cross-dataset generalization.</strong> Linear probing on NTU-60 and NTU-120 after pre-training on HumanML3D.</figcaption></figure>
+          </div>
+
+          <div id="panel-retrieval" class="result-panel" role="tabpanel" aria-labelledby="tab-retrieval" tabindex="0" data-result-panel="retrieval">
+            <div class="result-heading"><p class="eyebrow">Text&ndash;motion retrieval</p><h3>One semantic space supports retrieval in both directions</h3><p>Recall (%) on HumanML3D using the batch-based retrieval protocol.</p></div>
+            <div class="metric-strip two-metrics" aria-label="CoAMD retrieval Recall at 1 on HumanML3D">
+              <div><span>Text &rarr; Motion / R@1</span><strong>68.33</strong></div><div><span>Motion &rarr; Text / R@1</span><strong>68.86</strong></div>
+            </div>
+            <figure class="paper-figure result-figure"><div class="table-image-scroll" tabindex="0" role="region" aria-label="Text-motion retrieval results, scroll horizontally on small screens"><a href="images/text-motion-retrieval.jpg" target="_blank" rel="noopener noreferrer"><img src="images/text-motion-retrieval.jpg" width="1578" height="335" alt="Bidirectional text-motion retrieval results comparing TEMOS, T2M, TMR, LaMP, and CoAMD at Recall at 1, 2, 3, 5, and 10." loading="lazy"></a></div><figcaption><strong>Bidirectional retrieval.</strong> Text-to-motion and motion-to-text recall at multiple ranks.</figcaption></figure>
+          </div>
+
+          <div id="panel-editing" class="result-panel" role="tabpanel" aria-labelledby="tab-editing" tabindex="0" data-result-panel="editing">
+            <div class="result-heading"><p class="eyebrow">Temporal motion editing</p><h3>Complete missing motion while preserving the given context</h3><p>CoAMD supports temporal inpainting, outpainting, prefix generation, and suffix generation.</p></div>
+            <div class="metric-strip four-metrics" aria-label="CoAMD motion editing FID on HumanML3D, lower is better">
+              <div><span>Inpainting / FID &darr;</span><strong>0.023</strong></div><div><span>Outpainting / FID &darr;</span><strong>0.022</strong></div><div><span>Prefix / FID &darr;</span><strong>0.032</strong></div><div><span>Suffix / FID &darr;</span><strong>0.039</strong></div>
+            </div>
+            <figure class="paper-figure result-figure"><div class="table-image-scroll" tabindex="0" role="region" aria-label="Motion editing results, scroll horizontally on small screens"><a href="images/motion-editing.jpg" target="_blank" rel="noopener noreferrer"><img src="images/motion-editing.jpg" width="1433" height="488" alt="HumanML3D motion editing comparison of BAMM, MARDM, and CoAMD for temporal inpainting, outpainting, prefix, and suffix generation." loading="lazy"></a></div><figcaption><strong>Motion editing on HumanML3D.</strong> Comparison across four temporal editing settings.</figcaption></figure>
+          </div>
+          <p class="result-footnote">&uarr; Higher is better. &darr; Lower is better. Open any table to view the full-resolution image.</p>
+        </div>
+      </section>
+
+      <section id="bibtex" class="section gray-band">
+        <div class="page-width content-block">
+          <h2>BibTeX</h2>
+          <p class="section-intro">If you find this work useful, please cite the <a href="https://arxiv.org/abs/2604.17090" target="_blank" rel="noopener noreferrer">arXiv paper</a>.</p>
+          <div class="bibtex-shell">
+            <button class="copy-button" type="button" data-copy-citation><span data-copy-label>Copy</span></button>
+            <pre id="citation"><code>@misc{kuang2026marryingtexttomotiongenerationskeletonbased,
+  title         = {Marrying Text-to-Motion Generation with Skeleton-Based Action Recognition},
+  author        = {Jidong Kuang and Hongsong Wang and Jie Gui},
+  year          = {2026},
+  eprint        = {2604.17090},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  url           = {https://arxiv.org/abs/2604.17090}
+}</code></pre>
+            <span class="copy-status" role="status" aria-live="polite" data-copy-status></span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="page-width">
+        <span>CoAMD &middot; 2026</span>
+        <div class="footer-links"><a href="../Universal-Skeleton/">Universal Skeleton</a><a href="mailto:jidongkuang@seu.edu.cn">jidongkuang@seu.edu.cn</a></div>
+      </div>
+    </footer>
+    <script src="js/index.js"></script>
+  </body>
+</html>
